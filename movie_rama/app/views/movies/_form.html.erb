@@ -1,0 +1,46 @@
+<%= form_with(model: movie) do |form| %>
+  <div class="card", style="width: 30%; margin: auto;">
+    <div class="card-body">
+      <% if movie.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+          <ul>
+            <% movie.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= form.label :title, { class: "form-label" }, style: "display: block" %>
+        <%= form.text_field :title, { class: "form-control" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :description, { class: "form-label" }, style: "display: block" %>
+        <%= form.text_area :description, { class: "form-control" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :upload_date, { class: "form-label" }, style: "display: block" %>
+        <%= form.date_field :upload_date, { class: "form-control" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :likes,  { class: "form-label" }, style: "display: block" %>
+        <%= form.number_field :likes, { class: "form-control" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :hates,  { class: "form-label" }, style: "display: block" %>
+        <%= form.number_field :hates, { class: "form-control" } %>
+      </div>
+
+      <div>
+        <%= form.submit class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
