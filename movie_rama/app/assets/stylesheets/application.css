@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+ .list {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .list li {
+    margin-bottom: 10px; /* Adjust margin between list items */
+  }

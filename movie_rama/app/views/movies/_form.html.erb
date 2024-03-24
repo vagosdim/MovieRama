@@ -1,6 +1,7 @@
 <%= form_with(model: movie) do |form| %>
   <div class="card", style="width: 30%; margin: auto;">
     <div class="card-body">
+      <h4 style="text-align: center;">New movie</h4>
       <% if movie.errors.any? %>
         <div style="color: red">
           <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
@@ -22,22 +23,6 @@
         <%= form.label :description, { class: "form-label" }, style: "display: block" %>
         <%= form.text_area :description, { class: "form-control" } %>
       </div>
-
-      <div class="mb-3">
-        <%= form.label :upload_date, { class: "form-label" }, style: "display: block" %>
-        <%= form.date_field :upload_date, { class: "form-control" } %>
-      </div>
-
-      <div class="mb-3">
-        <%= form.label :likes,  { class: "form-label" }, style: "display: block" %>
-        <%= form.number_field :likes, { class: "form-control" } %>
-      </div>
-
-      <div class="mb-3">
-        <%= form.label :hates,  { class: "form-label" }, style: "display: block" %>
-        <%= form.number_field :hates, { class: "form-control" } %>
-      </div>
-
       <div>
         <%= form.submit class: "btn btn-primary" %>
       </div>

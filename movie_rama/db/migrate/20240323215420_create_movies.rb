@@ -4,8 +4,8 @@ class CreateMovies < ActiveRecord::Migration[7.1]
       t.string :title
       t.text :description
       t.date :upload_date
-      t.integer :likes
-      t.integer :hates
+      t.integer :likes, default: 0
+      t.integer :hates, default: 0
 
       t.timestamps
     end

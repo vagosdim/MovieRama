@@ -6,7 +6,8 @@
   <div> Welcome <%= current_user.email %> </div> 
     <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
   <% else %>
-    <%= button_to "Sign in", new_user_session_path %> 
+    <%= button_to "Sign in", new_user_session_path %> or
+    <%= button_to "Sign up", new_user_registration_path({}), method: :get %><br />
   <% end %>
   </div>
   </div>
@@ -14,10 +15,17 @@
 
 <div id="movies">
   <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
+    <div class="card", style="width: 30%; margin: auto;">
+      <div class="card-body">
+        <%= render movie %>
+          <p>
+            <%= link_to "Show this movie", movie %>
+          </p>
+      </div>
+    </div>
   <% end %>
 </div>
-<%= link_to "New movie", new_movie_path %>
+
+<% if user_signed_in? %>
+  <%= link_to "New movie", new_movie_path %>
+<% end %>
