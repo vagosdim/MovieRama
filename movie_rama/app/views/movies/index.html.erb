@@ -1,31 +1,28 @@
-<div class="container-lg">
+<div id="movieRamaContainer" class="container-lg">
   <div class="row">
-  <h2>MovieRama</h2>
-
-  <% if user_signed_in? %> 
-  <div> Welcome <%= current_user.email %> </div> 
-    <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-  <% else %>
-    <%= button_to "Sign in", new_user_session_path %> or
-    <%= button_to "Sign up", new_user_registration_path({}), method: :get %><br />
-  <% end %>
+    <h2>MovieRama</h2>
+    <% if user_signed_in? %> 
+      <p> Welcome <%= current_user.email %> &nbsp; <%= button_to "Sign out", destroy_user_session_path, method: :delete %> </p>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path %> &nbsp; or &nbsp;
+      <%= button_to "Sign up", new_user_registration_path({}), class: "btn-primary", id: "signUpBtn", method: :get %><br />
+    <% end %>
   </div>
-  </div>
-</div>
 
-<div id="movies">
-  <% @movies.each do |movie| %>
-    <div class="card", style="width: 30%; margin: auto;">
-      <div class="card-body">
-        <%= render movie %>
-          <p>
-            <%= link_to "Show this movie", movie %>
-          </p>
-      </div>
+  <div id="filterBar" class="row"> &nbsp; Sort by: &nbsp; Likes | Hates | Date</div>
+
+  <div id="movies">
+    <% if user_signed_in? %>
+      <%= button_to "New movie", new_movie_path, class: "newMovieBtn", method: :get %>
+    <% end %>
+    <div style="width: 70%; margin: auto;">
+      <% @movies.each do |movie| %>
+        <div class="card", style="margin-bottom: 10px;">
+          <div class="card-body">
+            <%= render movie %>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
-
-<% if user_signed_in? %>
-  <%= link_to "New movie", new_movie_path %>
-<% end %>

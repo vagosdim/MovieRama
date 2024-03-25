@@ -21,3 +21,34 @@
   .list li {
     margin-bottom: 10px; /* Adjust margin between list items */
   }
+
+  .newMovieBtn {
+    background-color: chartreuse;
+    color: white;
+    border-radius: 10px;
+    border-color: rgb(0, 214, 0);
+    float: right;
+    /*margin-right: auto;*/
+  }
+
+  #filterBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    background-color: lightgray;
+    border: 1px solid black;
+    color: black;
+    margin-bottom: 5%;
+  }
+
+  #movieRamaContainer {
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 30px;
+    background-color: rgb(248, 242, 242);
+  }
+
+  #signUpBtn {
+    border-radius: 10px;
+  }

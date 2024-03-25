@@ -1,8 +1,7 @@
-
-<%= render "form", movie: @movie %>
-
-<br>
-
 <div>
-  <%= link_to "Back to movies", movies_path %>
+  <%= render "form", movie: @movie %>
+  <br>
+  <div style="text-align: center">
+    <%= link_to "Back to movies", movies_path %>
+  </div>
 </div>

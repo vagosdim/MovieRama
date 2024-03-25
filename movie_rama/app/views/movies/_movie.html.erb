@@ -1,27 +1,13 @@
 <div id="<%= dom_id movie %>">
-  <p>
-    <strong>Title:</strong>
-    <%= movie.title %>
-  </p>
+  <h3>
+    <strong><%= movie.title %></strong>
+  </h3>
 
-  <p>
-    <strong>Description:</strong>
-    <%= movie.description %>
-  </p>
+  <p>Posted by <%=movie.user.email%> <%= custom_time_ago_in_words(movie.created_at) %></p>
+  <p><%= movie.description %></p>
 
-  <p>
-    <strong>Upload date:</strong>
-    <%= movie.upload_date %>
+  <p style="float:left">
+    <strong><%= movie.likes %> likes | <%= movie.hates %> hates </strong>
   </p>
-
-  <p>
-    <strong>Likes:</strong>
-    <%= movie.likes %>
-  </p>
-
-  <p>
-    <strong>Hates:</strong>
-    <%= movie.hates %>
-  </p>
-
+  <!--p style="float: left"><%= link_to "Show this movie", movie %></p-->
 </div>
