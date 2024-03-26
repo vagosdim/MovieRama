@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_24_225313) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_25_225605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_225313) do
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
+  create_table "reactions", force: :cascade do |t|
+    t.string "reaction_type"
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_reactions_on_movie_id"
+    t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -37,4 +47,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_225313) do
   end
 
   add_foreign_key "movies", "users"
+  add_foreign_key "reactions", "movies"
+  add_foreign_key "reactions", "users"
 end
