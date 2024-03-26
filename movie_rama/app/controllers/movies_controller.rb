@@ -3,15 +3,25 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = if params[:sort_by] == 'likes_desc'
-                Movie.all.order(likes: :desc)
-              elsif params[:sort_by] == 'hates_desc'
-                Movie.all.order(hates: :desc)
-              elsif params[:sort_by] == 'date_desc'
-                Movie.all.order(created_at: :desc)
-              else
-                Movie.all
-              end
+    # Query all movies in the database
+    @movies = Movie.all
+
+    # If params contains user id, filter the movies list for the
+    # movies that have been created by the specific user
+    if(params[:user_id]).present?
+      @user = User.find(params[:user_id])
+      @movies = @user.movies
+    end
+
+    if params[:sort_by] == 'likes_desc'
+      Movie.all.order(likes: :desc)
+    elsif params[:sort_by] == 'hates_desc'
+      Movie.all.order(hates: :desc)
+    elsif params[:sort_by] == 'date_desc'
+      Movie.all.order(created_at: :desc)
+    else
+      Movie.all
+    end
       
   end
 

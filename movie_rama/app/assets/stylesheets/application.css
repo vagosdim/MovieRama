@@ -23,12 +23,19 @@
   }
 
   .newMovieBtn {
-    background-color: chartreuse;
+    background-color: rgb(95, 173, 16);
     color: white;
     border-radius: 10px;
-    border-color: rgb(0, 214, 0);
+    border-color: rgb(8, 172, 8);
     float: right;
     /*margin-right: auto;*/
+  }
+
+  .styledBtn {
+    background-color: rgb(22, 78, 180);
+    border: blue 1px solid;
+    color: white;
+    border-radius: 10px;
   }
 
   #filterBar {
@@ -39,7 +46,7 @@
     background-color: lightgray;
     border: 1px solid black;
     color: black;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
   }
 
   #movieRamaContainer {

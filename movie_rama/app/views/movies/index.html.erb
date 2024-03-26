@@ -3,16 +3,20 @@
     <h2>MovieRama</h2>
     <p>
     <% if user_signed_in? %> 
-       Welcome <%= current_user.email %> &nbsp; <%= button_to "Sign out", destroy_user_session_path, class: 'btn-primary', method: :delete %>
+       Welcome <%= current_user.email %> &nbsp; <%= button_to "Sign out", destroy_user_session_path, class: 'styledBtn', method: :delete %>
     <% else %>
-      <%= link_to "Log in", new_user_session_path %> &nbsp; or &nbsp;
-      <%= button_to "Sign up", new_user_registration_path({}), class: "btn-primary", method: :get %><br />
+      <%= link_to "Log in", new_user_session_path %> &nbsp;or&nbsp;
+      <%= button_to "Sign up", new_user_registration_path({}), class: "styledBtn", method: :get %><br />
     <% end %>
     </p>
   </div>
 
   <div id="filterBar" class="row">
      &nbsp; Sort by: &nbsp; <%= link_to "Likes", movies_path(sort_by: :likes_desc), title: "Sorts movies on descending 'Likes' order"%> &nbsp; | &nbsp; <%= link_to "Hates", movies_path(sort_by: :hates_desc)%> &nbsp; | &nbsp; <%= link_to "Date", movies_path(sort_by: :date_desc)%>
+  </div>
+  
+  <div class="row">
+    <%= button_to "Display all movies", movies_path, method: :get, class: 'styledBtn' %>
   </div>
 
   <div id="movies">
