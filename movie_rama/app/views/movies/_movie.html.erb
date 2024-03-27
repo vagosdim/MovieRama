@@ -2,7 +2,8 @@
   <h3>
     <strong><%= movie.title %></strong>
   </h3>
-  <p>Posted by <%= link_to movie.user.email, movies_path(user_id: movie.user.id) %> <%= custom_time_ago_in_words(movie.created_at) %></p>
+  <% display_name = current_user.email ==  movie.user.email ? 'You' : movie.user.email %>
+  <p>Posted by <%= link_to display_name, movies_path(user_id: movie.user.id) %> <%= custom_time_ago_in_words(movie.created_at) %></p>
   <p><%= movie.description %></p>
 
   <p style="float:right">
@@ -11,8 +12,13 @@
         <p style="float:left">
           <strong><%= movie.likes %> likes | <%= movie.hates %> hates </strong>
         </p>
-      <% else %>
-        <p style="float:left">Be the first to vote for the movie: Like | Hate</p>
+      <% elsif !movie.has_been_voted? && display_name != 'You' %>
+        <p style="float:left">Be the first to vote for the movie: <%= render partial: "reactions/reaction", locals: { movie: movie }%> </p>
+      <% end %>
+      <% if display_name != 'You' %>
+        <p style="float: right">
+          <%= render partial: "reactions/reaction", locals: { movie: movie }%>
+        </p>
       <% end %>
     <% else %>
       <% if movie.has_been_voted? %>

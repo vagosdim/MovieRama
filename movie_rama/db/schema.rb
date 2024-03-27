@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_25_225605) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_27_184851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_25_225605) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_reactions_on_movie_id"
+    t.index ["user_id", "movie_id"], name: "index_reactions_on_user_id_and_movie_id", unique: true
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
