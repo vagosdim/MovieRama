@@ -16,6 +16,10 @@ gem 'devise', "~> 4.9.3"
 
 # Hot updates browser when files are modified --> for development purposes
 gem 'guard-livereload', '~> 2.5', require: false
+gem 'turbolinks', '~> 5.2'
+
+# Gem for enabling Jquery
+gem 'jquery-rails', '~> 4.6.0'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"

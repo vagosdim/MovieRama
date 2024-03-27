@@ -23,5 +23,9 @@ module MovieRama
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    # Enable assets pipeline
+    config.assets.enabled = true
+
   end
 end
