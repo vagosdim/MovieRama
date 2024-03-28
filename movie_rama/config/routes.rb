@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :movies do
-    resources :reactions, only: [:create, :update]
+    resources :reactions, only: [:create]
+    patch 'reactions', to: 'reactions#update'
     delete 'reactions', to: 'reactions#destroy'
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

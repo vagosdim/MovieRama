@@ -6,14 +6,8 @@
   <p><%= movie.description %></p>
 
   <p style="float:right">
-    <% if movie.has_been_voted? %>
-        <p style="float:left">
-          <strong><%= movie.likes_count %> likes | <%= movie.hates_count %> hates </strong>
-        </p>
-    <% end %>
     <% if user_signed_in? %>
       <% belongs_to_user = (current_user.email ==  movie.user.email) %>
-
       <% if !belongs_to_user %>
         <% if !movie.has_been_voted? %>
           <p style="float:left">Be the first to vote for the movie:</p>
@@ -22,18 +16,37 @@
           </p>
         <% else %>
           <% if movie.has_been_liked_by_user?(current_user.id) %>
+            <p style="float:left">
+              <strong><%= movie.likes_count %> likes | <%= link_to "#{movie.hates_count} hates", movie_reactions_path(movie_id: movie.id, reaction_type: "like"), method: :patch, remote: true %> </strong>
+            </p>
             <p style="float: right"> You like this movie &nbsp; | &nbsp; <%= link_to "Unlike", movie_reactions_path(movie_id: movie.id, reaction_type: "like"), method: :delete, remote: true %> &nbsp; </p>
           <% elsif movie.has_been_hated_by_user?(current_user.id) %>
+            <p style="float:left">
+              <strong><%= link_to "#{movie.likes_count} likes", movie_reactions_path(movie_id: movie.id, reaction_type: "hate"), method: :patch, remote: true %> | <%= movie.hates_count %> hates </strong>
+            </p>
             <p style="float: right"> You hate this movie &nbsp; | &nbsp; <%= link_to "Unhate", movie_reactions_path(movie_id: movie.id, reaction_type: "hate"), method: :delete, remote: true %> &nbsp; </p>
           <% else %>
+            <p style="float:left">
+              <strong><%= movie.likes_count %> likes | <%= movie.hates_count %> hates </strong>
+            </p>
             <p style="float: right">
               <%= render partial: "reactions/reaction", locals: { movie: movie }%>
             </p>
           <% end %>
         <% end %>
       <% else %>
-        
+         <% if movie.has_been_voted? %>
+            <p style="float:left">
+              <strong><%= movie.likes_count %> likes | <%= movie.hates_count %> hates </strong>
+            </p>
+          <% end %>  
       <% end%>
+    <% else %>
+      <% if movie.has_been_voted? %>
+        <p style="float:left">
+          <strong><%= movie.likes_count %> likes | <%= movie.hates_count %> hates </strong>
+        </p>
+      <% end %>
     <% end %>
   </p>
 </div>

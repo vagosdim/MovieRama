@@ -14,6 +14,15 @@ class ReactionsController < ApplicationController
     end
 
     def update
+        @movie = Movie.find(params[:movie_id])
+        @reaction = @movie.reactions.find_by(user: current_user, reaction_type: params[:reaction_type])
+        if(params[:reaction_type] == "like")
+            @reaction.update_attribute(:reaction_type, "hate")
+        elsif(params[:reaction_type] == "hate")
+            @reaction.update_attribute(:reaction_type, "like")
+        end
+        
+        redirect_to movies_path
     end
 
     def destroy
