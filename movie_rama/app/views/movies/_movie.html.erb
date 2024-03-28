@@ -22,9 +22,9 @@
           </p>
         <% else %>
           <% if movie.has_been_liked_by_user?(current_user.id) %>
-            <p style="float: right"> You like this movie &nbsp; | &nbsp; <%= link_to "Unlike", movie_reactions_path(movie_id: movie.id, reaction_type: "like"), method: :destroy, remote: true %> &nbsp; </p>
+            <p style="float: right"> You like this movie &nbsp; | &nbsp; <%= link_to "Unlike", movie_reactions_path(movie_id: movie.id, reaction_type: "like"), method: :delete, remote: true %> &nbsp; </p>
           <% elsif movie.has_been_hated_by_user?(current_user.id) %>
-            <p style="float: right"> You hate this movie &nbsp; | &nbsp; <%= link_to "Unhate", movie_reactions_path(movie_id: movie.id, reaction_type: "hate"), method: :destroy, remote: true %> &nbsp; </p>
+            <p style="float: right"> You hate this movie &nbsp; | &nbsp; <%= link_to "Unhate", movie_reactions_path(movie_id: movie.id, reaction_type: "hate"), method: :delete, remote: true %> &nbsp; </p>
           <% else %>
             <p style="float: right">
               <%= render partial: "reactions/reaction", locals: { movie: movie }%>
