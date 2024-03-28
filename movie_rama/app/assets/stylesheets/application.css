@@ -28,7 +28,7 @@
     border-radius: 10px;
     border-color: rgb(8, 172, 8);
     float: right;
-    /*margin-right: auto;*/
+    margin-left: 5px;
   }
 
   .styledBtn {
@@ -46,7 +46,7 @@
     background-color: lightgray;
     border: 1px solid black;
     color: black;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
   }
 
   #movieRamaContainer {
@@ -54,4 +54,8 @@
     box-sizing: border-box;
     padding: 30px;
     background-color: rgb(248, 242, 242);
+    overflow-y: auto;
+    min-width: 850px;
+    width: fit-content;
+    margin-bottom: 5%;
   }

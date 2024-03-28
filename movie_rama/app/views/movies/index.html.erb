@@ -1,14 +1,14 @@
 <div id="movieRamaContainer" class="container-lg">
   <div class="row" style="display: block ruby">
     <h2>MovieRama</h2>
-    <p>
+    <div class="row" style="float: right; margin-right: 1%; display: inherit; margin-top: 1%">
     <% if user_signed_in? %> 
        Welcome <%= current_user.email %> &nbsp; <%= button_to "Sign out", destroy_user_session_path, class: 'styledBtn', method: :delete %>
     <% else %>
       <%= link_to "Log in", new_user_session_path %> &nbsp;or&nbsp;
       <%= button_to "Sign up", new_user_registration_path({}), class: "styledBtn", method: :get %><br />
     <% end %>
-    </p>
+    </div>
   </div>
 
   <div id="filterBar" class="row">
@@ -17,13 +17,13 @@
   
   <div class="row">
     <%= button_to "Display all movies", movies_path, method: :get, class: 'styledBtn' %>
-  </div>
-
-  <div id="movies">
     <% if user_signed_in? %>
       <%= button_to "New movie", new_movie_path, class: "newMovieBtn", method: :get %>
     <% end %>
-    <div style="width: 70%; margin: auto;">
+  </div>
+
+  <div id="movies" class="row" style="margin-top: 2%; float: left">
+    <div style="width: 100%; margin: auto;">
       <% @movies.each do |movie| %>
         <div class="card", style="margin-bottom: 10px;">
           <div class="card-body">
