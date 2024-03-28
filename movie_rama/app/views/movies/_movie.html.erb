@@ -2,30 +2,38 @@
   <h3>
     <strong><%= movie.title %></strong>
   </h3>
-  <% display_name = current_user.email ==  movie.user.email ? 'You' : movie.user.email %>
-  <p>Posted by <%= link_to display_name, movies_path(user_id: movie.user.id) %> <%= custom_time_ago_in_words(movie.created_at) %></p>
+  <p>Posted by <%= link_to movie.user.email, movies_path(user_id: movie.user.id) %> <%= custom_time_ago_in_words(movie.created_at) %></p>
   <p><%= movie.description %></p>
 
   <p style="float:right">
+    <% if movie.has_been_voted? %>
+        <p style="float:left">
+          <strong><%= movie.likes_count %> likes | <%= movie.hates_count %> hates </strong>
+        </p>
+    <% end %>
     <% if user_signed_in? %>
-      <% if movie.has_been_voted? %>
-        <p style="float:left">
-          <strong><%= movie.likes %> likes | <%= movie.hates %> hates </strong>
-        </p>
-      <% elsif !movie.has_been_voted? && display_name != 'You' %>
-        <p style="float:left">Be the first to vote for the movie: <%= render partial: "reactions/reaction", locals: { movie: movie }%> </p>
-      <% end %>
-      <% if display_name != 'You' %>
-        <p style="float: right">
-          <%= render partial: "reactions/reaction", locals: { movie: movie }%>
-        </p>
-      <% end %>
-    <% else %>
-      <% if movie.has_been_voted? %>
-        <p style="float:left">
-          <strong><%= movie.likes %> likes | <%= movie.hates %> hates </strong>
-        </p>
-      <% end %>
+      <% belongs_to_user = (current_user.email ==  movie.user.email) %>
+
+      <% if !belongs_to_user %>
+        <% if !movie.has_been_voted? %>
+          <p style="float:left">Be the first to vote for the movie:</p>
+          <p style="float: right">
+              <%= render partial: "reactions/reaction", locals: { movie: movie }%>
+          </p>
+        <% else %>
+          <% if movie.has_been_liked_by_user?(current_user.id) %>
+            <p style="float: right"> You like this movie &nbsp; | &nbsp; <%= link_to "Unlike", movie_reactions_path(movie_id: movie.id, reaction_type: "like"), method: :destroy, remote: true %> &nbsp; </p>
+          <% elsif movie.has_been_hated_by_user?(current_user.id) %>
+            <p style="float: right"> You hate this movie &nbsp; | &nbsp; <%= link_to "Unhate", movie_reactions_path(movie_id: movie.id, reaction_type: "hate"), method: :destroy, remote: true %> &nbsp; </p>
+          <% else %>
+            <p style="float: right">
+              <%= render partial: "reactions/reaction", locals: { movie: movie }%>
+            </p>
+          <% end %>
+        <% end %>
+      <% else %>
+        
+      <% end%>
     <% end %>
   </p>
 </div>
