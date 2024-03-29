@@ -1,6 +1,6 @@
 class Movie < ApplicationRecord
     belongs_to :user
-    has_many :reactions
+    has_many :reactions, dependent: :destroy
     
     def has_been_voted?
         likes_count > 0 || hates_count > 0

@@ -7,3 +7,26 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Create users
+user1 = User.create(email: 'user1@movierama.com', password: 'password', password_confirmation: 'password')
+user2 = User.create(email: 'user2@movierama.com', password: 'password', password_confirmation: 'password')
+user3 = User.create(email: 'user3@movierama.com', password: 'password', password_confirmation: 'password')
+
+# Create movies
+movie1 = user1.movies.create(title: 'Movie 1', description: 'Movie 1 Description')
+movie2 = user1.movies.create(title: 'Movie 2', description: 'Movie 2 Description')
+movie3 = user2.movies.create(title: 'Movie 3', description: 'Movie 3 Description')
+movie4 = user2.movies.create(title: 'Movie 4', description: 'Movie 4 Description')
+movie5 = user3.movies.create(title: 'Movie 5', description: 'Movie 5 Description')
+movie6 = user3.movies.create(title: 'Movie 6', description: 'Movie 6 Description')
+
+# Create Reactions
+movie1.reactions.create(reaction_type: "like", user_id: user2.id)
+movie1.reactions.create(reaction_type: "like", user_id: user3.id)
+movie3.reactions.create(reaction_type: "like", user_id: user1.id)
+movie3.reactions.create(reaction_type: "hate", user_id: user3.id)
+movie4.reactions.create(reaction_type: "hate", user_id: user1.id)
+movie4.reactions.create(reaction_type: "hate", user_id: user3.id)
+movie5.reactions.create(reaction_type: "like", user_id: user1.id)
+movie6.reactions.create(reaction_type: "hate", user_id: user2.id)
