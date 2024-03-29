@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+  get 'errors/internal_server_error'
   devise_for :users
-  resources :movies do
+  resources :movies, except: [:show] do
     resources :reactions, only: [:create]
     patch 'reactions', to: 'reactions#update'
     delete 'reactions', to: 'reactions#destroy'
@@ -14,4 +16,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root to: "movies#index"
+
+  # Error routes
+  get '*path', to: 'errors#not_found'
+
 end
