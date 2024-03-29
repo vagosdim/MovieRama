@@ -15,7 +15,7 @@ class ReactionsController < ApplicationController
 
     def update
         @movie = Movie.find(params[:movie_id])
-        @reaction = @movie.reactions.find_by(user: current_user, reaction_type: params[:reaction_type])
+        @reaction = Reaction.find_by(user: current_user, movie: @movie)
         if(params[:reaction_type] == "like")
             @reaction.update_attribute(:reaction_type, "hate")
         elsif(params[:reaction_type] == "hate")
@@ -27,7 +27,7 @@ class ReactionsController < ApplicationController
 
     def destroy
         @movie = Movie.find(params[:movie_id])
-        @reaction = @movie.reactions.find_by(user: current_user, reaction_type: params[:reaction_type])
+        @reaction = Reaction.find_by(user: current_user, movie: @movie)
         if @reaction.destroy
             redirect_to movies_path, notice: 'Movie unliked successfully.'
           else

@@ -1,0 +1,13 @@
+# lib/tasks/empty_database.rake
+
+namespace :db do
+    desc 'Empty all tables in the database'
+    task empty: :environment do
+      ActiveRecord::Base.connection.tables.each do |table|
+        next if table == 'schema_migrations' # Skip the schema migrations table
+        ActiveRecord::Base.connection.execute("TRUNCATE #{table} RESTART IDENTITY CASCADE;")
+      end
+      puts 'All tables have been emptied.'
+    end
+end
+  
