@@ -4,37 +4,44 @@ class ReactionsController < ApplicationController
     before_action :set_movie, only: [:react, :undo_reaction, :reverse_reaction] # Sets @movie instance before reaction actions
     
     def react
-        @reaction = @movie.reactions.build(user: current_user, reaction_type: params[:reaction_type])
-        if @reaction.save
-            redirect_to movies_path
-            #head :ok
+        if @movie
+            @reaction = @movie.reactions.build(user: current_user, reaction_type: params[:reaction_type])
+            if @reaction.save
+                render 'reactions/react', locals: { movie: @movie }, layout: false
+            else
+                render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity
+            end
         else
-            redirect_to movies_path
-            #head :bad_request
+            redirect_ movies_path, alert: 'Movie not found'
         end
     end
 
     def undo_reaction
-        @reaction = @movie.reactions.find_by(user: current_user)
-        if @reaction &&
-            @reaction.destroy
-            redirect_to movies_path
-            #head :ok
+        if @movie
+            @reaction = @movie.reactions.find_by(user: current_user)
+            if @reaction && @reaction.destroy
+                render 'reactions/react', locals: { movie: @movie }, layout: false
+            else
+                render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity
+            end
         else
-            redirect_to movies_path
-            #head :bad_request
+            redirect_ movies_path, alert: 'Movie not found'
         end
     end
 
     def reverse_reaction
-        @reaction = @movie.reactions.find_by(user: current_user)
-        if @reaction
-            if @reaction.reaction_type == "like"
-                @reaction.update_attribute(:reaction_type, "hate")
-            elsif @reaction.reaction_type == "like"
-                @reaction.update_attribute(:reaction_type, "like")
+        if @movie
+            @reaction = @movie.reactions.find_by(user: current_user)
+            if @reaction
+                if @reaction.reaction_type == "like"
+                    @reaction.update_attribute(:reaction_type, "hate")
+                elsif @reaction.reaction_type == "hate"
+                    @reaction.update_attribute(:reaction_type, "like")
+                end
+                render 'reactions/react', locals: { movie: @movie }, layout: false
             end
-            redirect_to movies_path
+        else
+            redirect_ movies_path, alert: 'Movie not found'
         end
     end
 

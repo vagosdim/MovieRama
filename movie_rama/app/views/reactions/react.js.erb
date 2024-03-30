@@ -1,0 +1,2 @@
+// app/views/votes/create.js.erb
+document.getElementById('movie_<%= movie.id %>').innerHTML = '<%= j render partial: "movies/movie", locals: { movie: movie } %>';

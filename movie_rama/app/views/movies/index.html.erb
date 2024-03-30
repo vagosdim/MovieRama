@@ -27,7 +27,7 @@
       <% @movies.each do |movie| %>
         <div class="card", style="margin-bottom: 10px;">
           <div class="card-body">
-            <%= render movie %>
+            <%= render partial: 'movie', locals: {movie: movie} %>
           </div>
         </div>
       <% end %>

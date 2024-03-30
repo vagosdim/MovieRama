@@ -1,4 +1,4 @@
-<div id="<%= dom_id movie %>">
+<div id="movie_<%= movie.id %>">
   <h3>
     <strong><%= movie.title %></strong>
   </h3>
@@ -37,7 +37,7 @@
       <% else %>
          <% if movie.has_been_voted? %>
             <p style="float:left">
-              <strong><%= movie.likes_count %> likes | <%= movie.hates_count %> hates </strong>
+              <strong><span class="movie-likes-count"><%= movie.likes_count %></span> likes | <%= movie.hates_count %> hates </strong>
             </p>
           <% end %>  
       <% end%>
