@@ -1,2 +1,2 @@
-<%= link_to "Like", movie_reactions_path(movie_id: movie.id, reaction_type: "like"), method: :post, remote: true %> &nbsp; 
-| &nbsp; <%= link_to "Hate", movie_reactions_path(movie_id: movie.id, reaction_type: "hate"), method: :post, remote: true %>
+<%= link_to "Like", react_movies_path(title: movie.title, reaction_type: "like"), method: :post, remote: true, class: 'like-button' %> &nbsp; 
+| &nbsp; <%= link_to "Hate", react_movies_path(title: movie.title, reaction_type: "hate"), method: :post, remote: true, class: 'hate-button' %>

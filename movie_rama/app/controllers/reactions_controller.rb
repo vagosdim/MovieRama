@@ -2,36 +2,42 @@ class ReactionsController < ApplicationController
     
     before_action :authenticate_user! # Used with devise
     
-    def create
-        @movie = Movie.find(params[:movie_id])
-        @reaction = @movie.reactions.build(user: current_user, reaction_type: params[:reaction_type])
-        if @reaction.save
+    def react
+        movie = Movie.find_by(title: params[:title])
+        if movie && %w(like hate).include?(params[:reaction_type])
+            Reaction.create(user: current_user, movie: movie, reaction_type: params[:reaction_type])
             redirect_to movies_path
-            #render json: @reaction, status: :created
+            #head :ok
         else
-            render json: @reaction.errors, status: :unprocessable_entity
+            redirect_to movies_path
+            #head :bad_request
         end
     end
 
-    def update
-        @movie = Movie.find(params[:movie_id])
-        @reaction = Reaction.find_by(user: current_user, movie: @movie)
-        if(params[:reaction_type] == "like")
-            @reaction.update_attribute(:reaction_type, "hate")
-        elsif(params[:reaction_type] == "hate")
-            @reaction.update_attribute(:reaction_type, "like")
+    def undo_reaction
+        movie = Movie.find_by(title: params[:title])
+        if movie
+            reaction = Reaction.find_by(user: current_user, movie: movie)
+            if reaction
+                reaction.destroy
+                redirect_to movies_path
+                #head :ok
+            else
+                redirect_to movies_path
+                #head :bad_request
+            end
         end
-        
-        redirect_to movies_path
     end
 
-    def destroy
-        @movie = Movie.find(params[:movie_id])
-        @reaction = Reaction.find_by(user: current_user, movie: @movie)
-        if @reaction.destroy
-            redirect_to movies_path, notice: 'Movie unliked successfully.'
-          else
-            redirect_to movies_path, alert: 'Failed to unlike the movie.'
+    def reverse_reaction
+        movie = Movie.find_by(title: params[:title])
+        if movie
+            reaction = Reaction.find_by(user: current_user, movie: movie)
+            if reaction.reaction_type == "like"
+                reaction.update_attribute(:reaction_type, "hate")
+            elsif reaction.reaction_type == "like"
+                reaction.update_attribute(:reaction_type, "like")
+            end
         end
     end
 

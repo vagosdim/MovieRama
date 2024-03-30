@@ -17,14 +17,14 @@
         <% else %>
           <% if movie.has_been_liked_by_user?(current_user.id) %>
             <p style="float:left">
-              <strong><%= movie.likes_count %> likes | <%= link_to "#{movie.hates_count} hates", movie_reactions_path(movie_id: movie.id, reaction_type: "like"), method: :patch, remote: true %> </strong>
+              <strong><%= movie.likes_count %> likes | <%= link_to "#{movie.hates_count} hates", reverse_reaction_movies_path(title: movie.title), method: :patch, remote: true %> </strong>
             </p>
-            <p style="float: right"> You like this movie &nbsp; | &nbsp; <%= link_to "Unlike", movie_reactions_path(movie_id: movie.id, reaction_type: "like"), method: :delete, remote: true %> &nbsp; </p>
+            <p style="float: right"> You like this movie &nbsp; | &nbsp; <%= link_to "Unlike", undo_reaction_movies_path(title: movie.title), method: :delete, remote: true %> &nbsp; </p>
           <% elsif movie.has_been_hated_by_user?(current_user.id) %>
             <p style="float:left">
-              <strong><%= link_to "#{movie.likes_count} likes", movie_reactions_path(movie_id: movie.id, reaction_type: "hate"), method: :patch, remote: true %> | <%= movie.hates_count %> hates </strong>
+              <strong><%= link_to "#{movie.likes_count} likes", reverse_reaction_movies_path(title: movie.title), method: :patch, remote: true %> | <%= movie.hates_count %> hates </strong>
             </p>
-            <p style="float: right"> You hate this movie &nbsp; | &nbsp; <%= link_to "Unhate", movie_reactions_path(movie_id: movie.id, reaction_type: "hate"), method: :delete, remote: true %> &nbsp; </p>
+            <p style="float: right"> You hate this movie &nbsp; | &nbsp; <%= link_to "Unhate", undo_reaction_movies_path(title: movie.title), method: :delete, remote: true %> &nbsp; </p>
           <% else %>
             <p style="float:left">
               <strong><%= movie.likes_count %> likes | <%= movie.hates_count %> hates </strong>
