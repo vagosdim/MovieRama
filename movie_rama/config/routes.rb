@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   get 'errors/internal_server_error'
   devise_for :users
   resources :movies, except: [:show] do
-    post 'react', on: :collection, controller: 'reactions'
-    patch 'reverse_reaction', on: :collection, controller: 'reactions'
-    delete 'undo_reaction', on: :collection, controller: 'reactions'
+    post 'react', on: :member, controller: 'reactions'
+    patch 'reverse_reaction', on: :member, controller: 'reactions'
+    delete 'undo_reaction', on: :member, controller: 'reactions'
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
