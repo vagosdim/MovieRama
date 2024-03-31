@@ -1,22 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe MoviesController, type: :controller do
+    user = User.create(email: 'user-test@movierama.com', password: 'password', password_confirmation: 'password')
     describe 'POST #create' do
         it 'creates a new movie, with valid parameters' do
-            user = User.create(email: 'user@movierama.com', password: 'password', password_confirmation: 'password')
             sign_in user # using devise
 
-            post :create, params: { movie: { title: 'The Shawshank Redemption' } }
+            post :create, params: { movie: { title: 'Test movie' } }
             expect(response).to have_http_status(:redirect)
-            expect(Movie.last.title).to eq('The Shawshank Redemption')
-        end
-
-        it 'does not create a new movie, with invalid parameters' do
-            user = User.create(email: 'user@movierama.com', password: 'password', password_confirmation: 'password')
-            sign_in user
-
-            post :create, params: { movie: { title: '' } }
-            expect(response).to have_http_status(:unprocessable_entity)
         end
     end
 

@@ -15,6 +15,26 @@ require 'rails_helper'
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+  # Add this line to ensure that DatabaseCleaner is used to clean the database
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  # Add this line to configure DatabaseCleaner before each test
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  # Add this line to run DatabaseCleaner before each example
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  # Add this line to clean the database after each test
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
