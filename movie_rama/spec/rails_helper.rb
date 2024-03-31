@@ -62,6 +62,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.include FactoryBot::Syntax::Methods
   # Manages database state between tests
   # Clean databases with truncate between tests
   # Then reload data from seeds file

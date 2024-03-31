@@ -117,6 +117,13 @@ GEM
       http_parser.rb (~> 0)
     erubi (1.12.0)
     eventmachine (1.2.7)
+    factory_bot (6.4.6)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
+    faker (3.3.0)
+      i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
     formatador (1.1.0)
     globalid (1.2.1)
@@ -331,6 +338,8 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise (~> 4.9.3)
+  factory_bot_rails (~> 6.4.3)
+  faker (~> 3.3.0)
   guard-livereload (~> 2.5)
   jbuilder
   jquery-rails (~> 4.6.0)
