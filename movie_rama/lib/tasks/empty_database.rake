@@ -5,7 +5,11 @@ namespace :db do
     task empty: :environment do
       ActiveRecord::Base.connection.tables.each do |table|
         next if table == 'schema_migrations' # Skip the schema migrations table
-        ActiveRecord::Base.connection.execute("TRUNCATE #{table} RESTART IDENTITY CASCADE;")
+        # For postgres
+        # ActiveRecord::Base.connection.execute("TRUNCATE #{table} RESTART IDENTITY CASCADE;")
+        
+        # Sqlite3 does not support TRUNCATE, equivalent --> DELETE FROM without where clause
+        ActiveRecord::Base.connection.execute("DELETE FROM #{table};")
       end
       puts 'All tables have been emptied.'
     end

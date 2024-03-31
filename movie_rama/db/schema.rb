@@ -11,24 +11,21 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_03_30_190134) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "movies", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.date "upload_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.index ["title"], name: "index_movies_on_title", unique: true
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
   create_table "reactions", force: :cascade do |t|
     t.string "reaction_type"
-    t.bigint "user_id", null: false
-    t.bigint "movie_id", null: false
+    t.integer "user_id", null: false
+    t.integer "movie_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_reactions_on_movie_id"
