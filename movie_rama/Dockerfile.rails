@@ -32,6 +32,9 @@ RUN rails db:create
 RUN rails db:migrate
 RUN rake db:empty
 
+# Run application models and controllers tests
+RUN bundle exec rspec spec
+
 # Seed application with data
 RUN rails db:seed
 

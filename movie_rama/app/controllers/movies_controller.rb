@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
     # Query all movies in the database
-    @movies = Movie.all.order(upload_date: :asc)
+    @movies = Movie.all.order(upload_date: :desc)
 
     # If params contains user id, filter the movies list for the
     # movies that have been created by the specific user
@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
     elsif params[:sort_by] == 'hates_desc'
       @movies = Movie.all.sort_by{ |movie| -movie.hates_count }
     elsif params[:sort_by] == 'date_desc'
-      @movies = Movie.all.order(upload_date: :asc)
+      @movies = Movie.all.order(upload_date: :desc)
     else
       @movies
     end
