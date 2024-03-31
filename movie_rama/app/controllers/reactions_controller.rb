@@ -7,7 +7,9 @@ class ReactionsController < ApplicationController
         if @movie
             @reaction = @movie.reactions.build(user: current_user, reaction_type: params[:reaction_type])
             if @reaction.save
-                render 'reactions/react', locals: { movie: @movie }, layout: false
+                respond_to do |format|
+                    format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
+                end
             else
                 render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity
             end
@@ -20,7 +22,9 @@ class ReactionsController < ApplicationController
         if @movie
             @reaction = @movie.reactions.find_by(user: current_user)
             if @reaction && @reaction.destroy
-                render 'reactions/react', locals: { movie: @movie }, layout: false
+                respond_to do |format|
+                    format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
+                end
             else
                 render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity
             end
@@ -38,7 +42,10 @@ class ReactionsController < ApplicationController
                 elsif @reaction.reaction_type == "hate"
                     @reaction.update_attribute(:reaction_type, "like")
                 end
-                render 'reactions/react', locals: { movie: @movie }, layout: false
+                
+                respond_to do |format|
+                    format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
+                end
             end
         else
             redirect_ movies_path, alert: 'Movie not found'

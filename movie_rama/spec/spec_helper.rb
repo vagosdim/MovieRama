@@ -31,6 +31,7 @@ RSpec.configure do |config|
 
   # Include views path
   config.render_views = true
+
   # Include Devise test helpers for controller specs
   config.include Devise::Test::ControllerHelpers, type: :controller
 
