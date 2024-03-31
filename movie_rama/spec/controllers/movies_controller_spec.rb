@@ -30,9 +30,9 @@ RSpec.describe MoviesController, type: :controller do
             expect(response).to render_template('index')
         end
 
-        it 'displays movies by descnding order' do
+        it 'displays movies by descending creation date order' do
             movies = create_list(:movie, 5)
-            get :index
+            get :index, params: { sort_by: 'date_desc' }
             expect(assigns(:movies)).to eq(movies.reverse)    
         end
     end
