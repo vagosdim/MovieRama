@@ -2,7 +2,7 @@
   <h3>
     <strong><%= movie.title %></strong>
   </h3>
-  <p>Posted by <%= link_to user_display_name(movie), movies_path(user_id: movie.user.id) %> <%= custom_time_ago_in_words(movie.created_at) %></p>
+  <p>Posted by <%= link_to user_display_name(movie), movies_path(user_id: movie.user.id) %> <%= custom_time_ago_in_words(movie.upload_date) %></p>
   <p><%= movie.description %></p>
 
   <p style="float:right">

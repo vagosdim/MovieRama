@@ -4,52 +4,56 @@ class ReactionsController < ApplicationController
     before_action :set_movie, only: [:react, :undo_reaction, :reverse_reaction] # Sets @movie instance before reaction actions
     
     def react
-        if @movie
-            @reaction = @movie.reactions.build(user: current_user, reaction_type: params[:reaction_type])
-            if @reaction.save
-                respond_to do |format|
-                    format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
-                end
-            else
-                render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity
+        return redirect_to movies_path, alert: 'Movie not found' unless @movie
+
+        @reaction = @movie.reactions.build(user: current_user, reaction_type: params[:reaction_type])
+        if @reaction.save
+            respond_to do |format|
+                format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
             end
         else
-            redirect_ movies_path, alert: 'Movie not found'
+            render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity
         end
     end
 
     def undo_reaction
-        if @movie
-            @reaction = @movie.reactions.find_by(user: current_user)
-            if @reaction && @reaction.destroy
-                respond_to do |format|
-                    format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
-                end
+        return redirect_to movies_path, alert: 'Movie not found' unless @movie
+        
+        @reaction = @movie.reactions.find_by(user: current_user)
+        return redirect_to movies_path unless @reaction
+        
+        respond_to do |format|
+            if @reaction.destroy
+                format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
             else
-                render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity
+                format.js { render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity }
             end
-        else
-            redirect_ movies_path, alert: 'Movie not found'
         end
+        
     end
 
     def reverse_reaction
-        if @movie
-            @reaction = @movie.reactions.find_by(user: current_user)
-            if @reaction
-                if @reaction.reaction_type == "like"
-                    @reaction.update_attribute(:reaction_type, "hate")
-                elsif @reaction.reaction_type == "hate"
-                    @reaction.update_attribute(:reaction_type, "like")
-                end
-                
-                respond_to do |format|
-                    format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
-                end
-            end
-        else
-            redirect_ movies_path, alert: 'Movie not found'
+        
+        return redirect_to movies_path, alert: 'Movie not found' unless @movie
+        
+        @reaction = @movie.reactions.find_by(user: current_user)
+        return redirect_to movies_path unless @reaction
+
+        new_reaction = "invalid reaction"
+        if @reaction.reaction_type == "like"
+            new_reaction = "hate"
+        elsif @reaction.reaction_type == "hate"
+            new_reaction = "like"
         end
+
+        respond_to do |format|
+            if @reaction.update_attribute(:reaction_type, new_reaction)
+                format.js { render partial: 'reactions/react', locals: { movie: @movie }, layout: false, status: :ok }
+            else
+                format.js { render json: { success: false, errors: @reaction.errors.full_messages }, status: :unprocessable_entity }
+            end
+        end
+        
     end
 
     private
