@@ -1,7 +1,7 @@
 # MovieRama
 Social sharing platform where users can share their favorite movies.
 
-More detailed explanation can be found in MovieRama-Documentation.pdf
+More detailed explanation can be found in **MovieRama-Documentation.pdf**
 
 Running MovieRama
 Our application was developed using Ruby on Rails version ‘7.1.3’ and Ruby version ‘3.0.0’ on Ubuntu 18.04.6 LTS. All dependencies of the application are listed in its Gemfile. Initially, the application was setup using the Postgres database, however during the end of the development process, we decided to switch to the Sqlite3 database which is supported by default by Rails in order to simplify the delivery of the current assessment. The application was running successfully with Postgres prior to switching to Sqlite3.
