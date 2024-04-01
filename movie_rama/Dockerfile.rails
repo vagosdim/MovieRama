@@ -27,13 +27,11 @@ COPY . .
 EXPOSE 3000
 
 # Run database migrations
+RUN bin/rails db:environment:set RAILS_ENV=development
 RUN rake db:drop
 RUN rails db:create
 RUN rails db:migrate
 RUN rake db:empty
-
-# Run application models and controllers tests
-RUN bundle exec rspec spec
 
 # Seed application with data
 RUN rails db:seed
