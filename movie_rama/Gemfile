@@ -33,6 +33,7 @@ gem 'factory_bot_rails', '~> 6.4.3'
 # Used for generating fake data for e.g., testign purposes
 gem 'faker', '~> 3.3.0'
 gem 'database_cleaner'
+
 # Generates Entity-Realtionship Diagram of Rails application
 gem 'rails-erd', '~> 1.7.2'
 

@@ -9,7 +9,7 @@ Our application was developed using Ruby on Rails version ‘7.1.3’ and Ruby v
 (PROPOSED) To further simplify the delivery and testing of the application, we also developed the Dockerfile.rails docker file. In order to run the application through the Dockerfile, we run the following commands:
 ```    
     1. Open a terminal and change to ‘movie_rama’ directory which contains the web application code and the Dockerfile
-    2. docker build -t movie_rama_web -f Dcokerfile.rails
+    2. docker build -t movie_rama_web -f Dockerfile.rails .
     3. docker run -it -p 3000:3000 movie_rama_web
 ```
 Then, by opening a browser you visit localhost:3000 and the MovieRama application should be now visible in the browser.
