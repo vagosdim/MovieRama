@@ -43,6 +43,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
     @movie.user_id = current_user.id
+    @movie.upload_date = Time.zone.now
     respond_to do |format|
       if @movie.save
         format.html { redirect_to movies_url, notice: "Movie was successfully created." }
@@ -85,6 +86,6 @@ class MoviesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def movie_params
-      params.require(:movie).permit(:title, :description, :user_id)
+      params.require(:movie).permit(:title, :description, :user_id, :upload_date)
     end
 end
